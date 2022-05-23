@@ -1,0 +1,34 @@
+<style>
+div.x {
+    margin-left: 4em;
+    max-width: 40em;
+    }
+textarea
+{
+    width: 100%;
+}
+</style>
+
+
+<h1>{{ post.author }}'s unforgettable words:</h1>
+<p>{{ post.post_text }}</p>
+{% for comment in post.comment_set.all %}
+<div class="x">
+<fieldset>
+    <legend>{{ comment.author }} says:</legend>
+    {{ comment.comment_text}}
+</fieldset>
+</div>
+{% endfor %}
+<form action="{% url 'reply' post.id %}" method="post">
+{% csrf_token %}
+<div class="x">
+    <strong>Snap a witty retort:</strong>
+    <br>
+    <input type="text" id="speaker" name="speaker" placeholder="Your name:">
+    <textarea id="retort" name="retort" rows="4" cols="40" placeholder="Your rhetorical gem:"></textarea>
+</div>
+<div class="x">
+    <input type="submit" value="Post reply">
+    <a href="{% url 'index' %}" style="float: right;">Back to post list</a>
+</div>

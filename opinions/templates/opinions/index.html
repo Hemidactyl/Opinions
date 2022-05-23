@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome to mysite2</title>
+    </head>
+    <style>
+        div.x {
+            max-width: 20em;
+            }
+        </style>
+    <body>
+        <h1>Yo dawg, what brings?</h1>
+        <div class="x">
+          <fieldset>
+            <legend>Here's a list of all the posts:</legend>
+            {% if post_list %}
+                <ul>
+                {% for post in post_list %}
+                    <li><a href="{% url 'detail' post.id %}">{{ post.author }}'s post</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No posts to show.</p>
+            {% endif %}
+          </fieldset>
+        </div> 
+    </body>
+</html>
