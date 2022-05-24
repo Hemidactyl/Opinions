@@ -7,6 +7,8 @@ class Post(models.Model):
     author = models.CharField(max_length=50)
     post_text = models.TextField(max_length=500)
     pub_date = models.DateTimeField(default=timezone.now)
+    # added is_deleted to the model
+    is_deleted = models.DateTimeField(null=True, blank=True, default=None)
 
     def __str__(self):
         return self.author + "'s post"
