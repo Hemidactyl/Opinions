@@ -1,6 +1,13 @@
 from django.urls import path, include
-from .views import PostList, CreatePost, DeletePost, CreateComment, CommentList, DeleteComment, AuthorList
-
+from .views import (
+    PostList,
+    CreatePost,
+    DeletePost,
+    CreateComment,
+    CommentList,
+    DeleteComment,
+    AuthorList
+)
 from . import views
 
 urlpatterns = [

@@ -5,7 +5,11 @@ from django.urls import reverse
 from django.utils import timezone
 from rest_framework import permissions, status
 from .serializers import (
-    PostSerializer, CommentSerializer, PostAuthorSerializer, CommentAuthorSerializer, DeletePostSerializer
+    PostSerializer,
+    CommentSerializer,
+    CommentAuthorSerializer,
+    DeletePostSerializer,
+    AuthorCounter
 )
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -96,13 +100,22 @@ class DeleteComment(GenericAPIView, DestroyModelMixin):
 
 # list of all author's with nr of posts and comments they each made
 # work in progress, experimenting with serializers
+'''
 class AuthorList(GenericAPIView, ListModelMixin):
-    queryset = Post.objects.filter(is_deleted=None)
-    serializer_class = PostAuthorSerializer
+    queryset = Comment.objects.all()
+    serializer_class = CommentAuthorSerializer
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+'''
 
+class AuthorList(APIView):
+
+    def get(self, request, *args, **kwargs):
+        doIt = AuthorCounter(*args, **kwargs)
+        result = doIt.count_authors()
+        response = Response(result, status=status.HTTP_200_OK)
+        return response
 
 
 # Previous approaches - APIView and ModelViewSet
